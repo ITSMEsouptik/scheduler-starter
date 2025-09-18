@@ -1,0 +1,18 @@
+@host = http://localhost:3000
+
+### Health
+GET {{host}}/health
+
+### Create workflow from YAML
+POST {{host}}/workflows
+content-type: application/json
+
+{
+  "yaml": "name: example-hello\nversion: 1\ntasks:\n  - name: A\n    type: echo\n  - name: B\n    type: echo\n    dependsOn: [A]\n  - name: C\n    type: echo\n    dependsOn: [A]"
+}
+
+### List runs
+GET {{host}}/runs
+
+### Get run detail
+GET {{host}}/runs/{{runId}}

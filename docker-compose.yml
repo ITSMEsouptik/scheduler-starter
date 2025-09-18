@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: scheduler
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  dbeaver:
+    image: dbeaver/cloudbeaver:latest
+    ports:
+      - '8978:8978'
+    depends_on:
+      - postgres
+    environment:
+      CB_SERVER_NAME: 'Dev DB Manager'
+      CB_ADMIN_NAME: 'cbadmin' # Changed from CB_ADMIN_USER
+      CB_ADMIN_PASSWORD: 'cbadmin123' # Changed password
+    volumes:
+      - dbeaver_data:/opt/cloudbeaver/workspace
+    profiles:
+      - dev
+
+  redis:
+    image: redis:7
+    ports:
+      - '6379:6379'
+
+volumes:
+  postgres_data:
+  dbeaver_data:

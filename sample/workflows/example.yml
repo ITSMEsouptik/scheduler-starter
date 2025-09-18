@@ -1,0 +1,12 @@
+name: example-hello
+version: 1
+tasks:
+  - name: A
+    type: echo
+    params: { msg: "start" }
+  - name: B
+    type: echo
+    dependsOn: [A]
+  - name: C
+    type: echo
+    dependsOn: [A]

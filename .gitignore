@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+npm-debug.log
+
+# Build output
+dist/
+build/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log
+
+# Docker volumes
+postgres_data/
+redis_data/
+dbeaver_data/
+
+# Testing
+coverage/
+.nyc_output/
+
+# OS specific
+.DS_Store
+Thumbs.db
